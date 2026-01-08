@@ -7,6 +7,8 @@
 #include "SFML/Window.hpp"
 
 #include "sys.hpp"
+#include "Entity.hpp";
+
 
 #include "Particle.hpp"
 #include "ParticleMan.hpp"
@@ -30,6 +32,8 @@ public:
 
 	ParticleMan beforeParts;
 	ParticleMan afterParts;
+
+	Entity entity;
 
 	Game(sf::RenderWindow * win);
 

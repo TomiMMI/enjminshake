@@ -5,8 +5,10 @@
 
 #include "C.hpp"
 #include "Game.hpp"
+#include "Entity.hpp";
 
 #include "HotReloadShader.hpp"
+#include <iostream>
 
 static int cols = C::RES_X / C::GRID_SIZE;
 static int lastLine = C::RES_Y / C::GRID_SIZE - 1;
@@ -125,6 +127,7 @@ void Game::update(double dt) {
 
 	beforeParts.update(dt);
 	afterParts.update(dt);
+	entity.Update(dt);
 }
 
  void Game::draw(sf::RenderWindow & win) {
@@ -146,13 +149,14 @@ void Game::update(double dt) {
 
 	for (sf::RectangleShape& r : rects) 
 		win.draw(r);
+
+	win.draw(this->entity.sprite);
 	
 
 	afterParts.draw(win);
 }
 
 void Game::onSpacePressed() {
-	
 }
 
 
