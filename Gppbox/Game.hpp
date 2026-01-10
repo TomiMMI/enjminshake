@@ -7,7 +7,7 @@
 #include "SFML/Window.hpp"
 
 #include "sys.hpp"
-#include "Entity.hpp";
+#include "Player.hpp";
 
 
 #include "Particle.hpp"
@@ -18,6 +18,8 @@ using namespace sf;
 class HotReloadShader;
 class Game {
 public:
+
+	static Game* Instance;
 	sf::RenderWindow*				win = nullptr;
 
 	sf::RectangleShape				bg;
@@ -33,7 +35,7 @@ public:
 	ParticleMan beforeParts;
 	ParticleMan afterParts;
 
-	Entity entity;
+	Player* player;
 
 	Game(sf::RenderWindow * win);
 

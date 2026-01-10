@@ -5,13 +5,14 @@
 
 #include "C.hpp"
 #include "Game.hpp"
-#include "Entity.hpp";
+#include "Player.hpp";
 
 #include "HotReloadShader.hpp"
 #include <iostream>
 
 static int cols = C::RES_X / C::GRID_SIZE;
 static int lastLine = C::RES_Y / C::GRID_SIZE - 1;
+Game* Game::Instance = nullptr;
 
 Game::Game(sf::RenderWindow * win) {
 	this->win = win;
@@ -42,6 +43,9 @@ Game::Game(sf::RenderWindow * win) {
 	walls.push_back(Vector2i(cols >>2, lastLine - 4));
 	walls.push_back(Vector2i((cols >> 2) + 1, lastLine - 4));
 	cacheWalls();
+	Game::Instance = this;
+	player = new Player();
+	std::cout << std::to_string(player->cy) << "," << std::to_string(player->yy) << endl;
 }
 
 void Game::cacheWalls()
@@ -81,11 +85,11 @@ void Game::pollInput(double dt) {
 	float lateralSpeed = 8.0;
 	float maxSpeed = 40.0;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) {
-
+		player->MoveX(-1);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-
+		player->MoveX(1);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
@@ -127,7 +131,7 @@ void Game::update(double dt) {
 
 	beforeParts.update(dt);
 	afterParts.update(dt);
-	entity.Update(dt);
+	player->Update(dt);
 }
 
  void Game::draw(sf::RenderWindow & win) {
@@ -150,13 +154,14 @@ void Game::update(double dt) {
 	for (sf::RectangleShape& r : rects) 
 		win.draw(r);
 
-	win.draw(this->entity.sprite);
+	win.draw(this->player->sprite);
 	
 
 	afterParts.draw(win);
 }
 
 void Game::onSpacePressed() {
+	player->Jump();
 }
 
 

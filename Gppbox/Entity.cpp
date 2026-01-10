@@ -14,12 +14,13 @@ Entity::Entity(float x, float y,std::string textpath) {
 	this->setCoordinates(x, y);
 }
 Entity::Entity() {
-	if (!this->texture.loadFromFile("res/images.jpg")) {
+	if (!this->texture.loadFromFile("res/player.png")) {
 		printf("Texture :", "res/images.jpg", "could not be loaded.");
 	}
 	else {
 		this->sprite = sf::Sprite(texture);
 	}
+	this->sprite.setOrigin(0, texture.getSize().y);
 	this->setCoordinates(200, 200);
 };
 void Entity::setCoordinates(float x, float y) {
@@ -31,7 +32,11 @@ void Entity::setCoordinates(float x, float y) {
 	this->yr = (yy - cy * 16) / C::GRID_SIZE;
 	this->sprite.setPosition(x, y);
 }
+
+void Entity::setCoordinates(int cx, float xr, int cy, float yr) {
+	this->xx = (cx  + xr) * (float)C::GRID_SIZE;
+	this->yy = (cy  + yr) * (float)C::GRID_SIZE;
+	this->sprite.setPosition(xx, yy);}
+
 void Entity::Update(double dt) {
-	this->xx += 10 * dt;
-	this->sprite.setPosition(xx, yy);
 };

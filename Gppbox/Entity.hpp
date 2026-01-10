@@ -22,6 +22,7 @@ public:
 	Entity();
 
 	void setCoordinates(float x, float y);
+	void setCoordinates(int cx, float xr, int cy, float xy);
 
 	virtual void Update(double dt);
 };
