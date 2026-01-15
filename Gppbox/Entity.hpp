@@ -5,7 +5,7 @@ class Entity {
 
 public:
 	sf::Texture texture;
-	sf::Sprite sprite;
+	sf::RectangleShape sprite;
 
 	int cx;
 	int cy;
@@ -19,6 +19,7 @@ public:
 	float dy;
 
 	Entity(float x, float y, std::string textpath);
+	Entity(float x, float y);
 	Entity();
 
 	void setCoordinates(float x, float y);

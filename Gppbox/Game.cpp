@@ -44,7 +44,7 @@ Game::Game(sf::RenderWindow * win) {
 	walls.push_back(Vector2i((cols >> 2) + 1, lastLine - 4));
 	cacheWalls();
 	Game::Instance = this;
-	player = new Player();
+	player = new Player(100,(lastLine-1) * C::GRID_SIZE);
 	std::cout << std::to_string(player->cy) << "," << std::to_string(player->yy) << endl;
 }
 
@@ -52,7 +52,7 @@ void Game::cacheWalls()
 {
 	wallSprites.clear();
 	for (Vector2i & w : walls) {
-		sf::RectangleShape rect(Vector2f(16,16));
+		sf::RectangleShape rect(Vector2f(C::GRID_SIZE, C::GRID_SIZE));
 		rect.setPosition((float)w.x * C::GRID_SIZE, (float)w.y * C::GRID_SIZE);
 		rect.setFillColor(sf::Color(0x07ff07ff));
 		wallSprites.push_back(rect);
@@ -97,7 +97,7 @@ void Game::pollInput(double dt) {
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::T)) {
-
+		player->debug = !player->debug;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
 		if (!wasPressed) {
